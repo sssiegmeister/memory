@@ -3,7 +3,7 @@
 @import "~milligram/dist/milligram";
 
 .column > p {
-    padding-top: 10ex;
+    padding-top: 1ex;
     text-align: center;
 }
 
