@@ -1,3 +1,14 @@
-<div id="root">
-  React app loading...
+
+<div class="row">
+  <div class="column">
+    <script>
+      function join() {
+        window.location.assign(window.location.href + "game/" + document.getElementById("gameName").value);
+      }
+    </script>
+    <h1 id="index-page">Join a Game</h1>
+    <p>Enter name of game instance:</p>
+    <input type="text" id="gameName">
+    <button type="submit" id="joinGame" onclick="join()">Join</button>
+  </div>
 </div>

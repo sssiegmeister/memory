@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
-export default function game_init(root) {
-  ReactDOM.render(<Starter/>, root);
+export default function memory_init(root, channel) {
+  ReactDOM.render(<Memory channel={channel} />, root);
 }
 
 //Source: https://www.w3resource.com/javascript-exercises/javascript-array-exercise-17.php
@@ -56,15 +56,19 @@ function makeGrid() {
   return grid;
 }
 
-class Starter extends React.Component {
+class Memory extends React.Component {
 
 
   constructor(props) {
     super(props);
 
+    this.channel = props.channel;
+
     this.handleReset = this.handleReset.bind(this);
 
     this.state = {tiles: makeGrid(), ...initialState};
+
+    this.channel.join().receive("ok", this.update.bind(this)).receive("error", res => { console.log("Unable to join", res)});
   }
 
   makeGrid() {
@@ -109,6 +113,10 @@ class Starter extends React.Component {
         this.setState(_.assign({}, this.state, {tiles, pair: false}))
       }, 1000);
     }
+  }
+
+  update(view) {
+    this.setState(view.game);
   }
 
   selectTile(tile) {
